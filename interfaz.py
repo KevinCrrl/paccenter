@@ -1,5 +1,6 @@
 import customtkinter as tk
 from shell import shell
+from subprocess import run
 
 def interfaz():
     root = tk.CTk()
@@ -20,9 +21,16 @@ def interfaz():
 
     def inst():
         paquete = entrada1.get()
-        shell(f"pkexec pacman -S {paquete} --noconfirm")
-        texto1 = tk.CTkLabel(root, text="Paquete instalado.")
-        texto1.pack()
+
+        comando = run(["pkexec", "pacman", "-S", paquete, "--noconfirm"], capture_output=True, text=True) # Se evita el uso de shell=True para que no se inyecten comandos maliciosos en las entradas y se reviente el sistema
+        salida = comando.stderr.strip() # Pacman deja los errores en stderr, no en stdout, se usa strip() para quitar el salto de línea que deja la salida
+
+        if salida == f"error: no se ha encontrado el paquete: {paquete}":
+            texto1 = tk.CTkLabel(root, text="Error, no se encontró el paquete.")
+            texto1.pack()
+        else:
+            texto1 = tk.CTkLabel(root, text="Paquete instalado.")
+            texto1.pack()
 
     aclaracion = tk.CTkLabel(root, text="En las opciones actualizar y reparar se pide la contraseña dos veces.")
     aclaracion.pack(pady=10)
