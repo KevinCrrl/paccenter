@@ -23,7 +23,3 @@ Así ya se puede ejecutar usando: ./paccenter argumento
 pygilet: Se usa para crear títulos en ascii para el modo terminal, se instala con "pacman -S python-pyfiglet"
 
 customtkinter: Se usa para construir la interfaz gráfica, se instala con "yay -S customtkinter" (yay se compila clonando su repositorio), además en instalaciones de Python en Linux no suele venir la librería tkinter que es ecesaria para el funcionamiento de customtkinter, se instala con "pacman -S tk"
-
-## Por Mejorar
-
-- Mejorar la verificación de si un programa se instaló correctamente.
